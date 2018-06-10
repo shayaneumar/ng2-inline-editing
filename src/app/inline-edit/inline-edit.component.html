@@ -1,0 +1,37 @@
+<div id="inlineEditWrapper">
+
+    <!-- Editable value -->
+    <a (click)="edit(value)" [hidden]="editing">{{ value }}</a>
+
+    <!-- inline edit form -->
+    <form  #inlineEditForm="ngForm" class="inlineEditForm form-inline" (ngSubmit)="onSubmit(value)" [hidden]="!editing || disable">
+        <div class="form-group">
+
+            <!-- inline edit control  -->
+            <input *ngIf="isTextbox" 
+                type="text" 
+                #inlineEditControl 
+                class="form-control" 
+                [(ngModel)]="value" 
+                name="value"
+                maxlength="{{max}}" 
+                size="{{size}}"/>
+
+            <textarea *ngIf="isTextarea" 
+                #inlineEditControl class="form-control" 
+                [(ngModel)]="value" 
+                name="value" 
+                maxlength="{{max}}" 
+                rows="{{rows}}" 
+                cols="{{columns}}" 
+                >
+            </textarea>
+
+            <!-- inline edit save and cancel buttons -->
+            <span>
+                    <button type="submit" class="btn btn-primary" [disabled]="inlineEditForm.form.controls.value && inlineEditForm.form.controls.value.invalid"><span class="glyphicon glyphicon-ok" >Ok</span></button>
+                    <button class="btn btn-default" (click)="cancel(value)"><span class="glyphicon glyphicon-remove">Cancel</span></button>
+            </span>
+        </div>
+    </form>
+</div>
