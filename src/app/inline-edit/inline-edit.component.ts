@@ -19,16 +19,18 @@ export enum InputType {
     templateUrl: './inline-edit.component.html'
 })
 export class InlineEditComponent implements ControlValueAccessor {
-    private _disable = false;
-    private _min = 0;
-    private _max = Infinity;
     private _value = '';
     private _editing = false;
     private _preValue = '';
     private _type = InputType.text;
-    private _rows = 4;
-    private _columns = 20;
-    private _size = 20;
+
+    @Input() disable = false;
+    @Input() min = 0;
+    @Input() max = Infinity;
+    @Input() rows = 4;
+    @Input() columns = 20;
+    @Input() size = 20;
+
 
     @Output() save: EventEmitter<any> = new EventEmitter();
     @ViewChild('inlineEditControl') inlineEditControl: HTMLFormElement;
@@ -36,30 +38,6 @@ export class InlineEditComponent implements ControlValueAccessor {
 
     constructor(private _elementRef: ElementRef,
         private _renderer: Renderer) {
-    }
-
-    @Input()
-    set min(value: number) {
-        this._min = value;
-    }
-    get min(): number {
-        return this._min;
-    }
-
-    @Input()
-    get max(): number {
-        return this._max;
-    }
-    set max(value: number) {
-        this._max = value;
-    }
-
-    @Input()
-    get disable(): boolean {
-        return this._disable;
-    }
-    set disable(value: boolean) {
-        this._disable = value;
     }
 
     get value(): string {
@@ -88,30 +66,6 @@ export class InlineEditComponent implements ControlValueAccessor {
     }
     get type(): string {
         return InputType[this._type];
-    }
-
-    @Input()
-    set rows(value: number) {
-        this._rows = value;
-    }
-    get rows(): number {
-        return this._rows;
-    }
-
-    @Input()
-    set columns(value: number) {
-        this._columns = value;
-    }
-    get columns(): number {
-        return this._columns;
-    }
-
-    @Input()
-    set size(value: number) {
-        this._size = value;
-    }
-    get size(): number {
-        return this._size;
     }
 
     onChange: Function = Function.prototype;
