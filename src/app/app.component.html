@@ -11,10 +11,11 @@
     <app-inline-edit
       formControlName="editableText2" 
       (save)="saveEditable($event)" 
-      [min]="1" 
-      [max]="20" 
+      min="1" 
+      max="200" 
       type="textarea" 
-      rows="5">
+      rows="5"
+      columns="20">
     </app-inline-edit>
     <div class="task-name-required"  [hidden]="myForm.controls.editableText2.valid">Required.</div>
   </form>

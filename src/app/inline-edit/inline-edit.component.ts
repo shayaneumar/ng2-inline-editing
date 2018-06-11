@@ -1,4 +1,4 @@
-import { Component, Output, forwardRef, EventEmitter, ViewChild, Renderer, Input } from '@angular/core';
+import { Component, Output, forwardRef, EventEmitter, ViewChild, Renderer, Input, ElementRef, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
@@ -34,7 +34,8 @@ export class InlineEditComponent implements ControlValueAccessor {
     @ViewChild('inlineEditControl') inlineEditControl: HTMLFormElement;
     @ViewChild('inlineEditForm') inlineEditForm: NgForm;
 
-    constructor(private _renderer: Renderer) {
+    constructor(private _elementRef: ElementRef,
+        private _renderer: Renderer) {
     }
 
     @Input()
@@ -158,7 +159,7 @@ export class InlineEditComponent implements ControlValueAccessor {
         this.validate();
     }
 
-    cancel(value: any) {
+    cancel() {
         this._value = this._preValue;
         this.editing = false;
         this.validate();
@@ -168,5 +169,18 @@ export class InlineEditComponent implements ControlValueAccessor {
         if (!this.isValid) {
             this.inlineEditForm.form.get('value').setErrors({ 'invalid': true });
         }
+    }
+
+    @HostListener('document:click', ['$event'])
+    clickout(event) {
+        if (!this._editing) {
+            return;
+        }
+
+        if (this._elementRef.nativeElement.contains(event.target)) {
+            return;
+        }
+
+        this.cancel();
     }
 }
