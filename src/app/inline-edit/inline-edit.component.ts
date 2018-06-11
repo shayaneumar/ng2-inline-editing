@@ -30,7 +30,7 @@ export class InlineEditComponent implements ControlValueAccessor {
     @Input() rows = 4;
     @Input() columns = 20;
     @Input() size = 20;
-
+    @Input() limit = Infinity;
 
     @Output() save: EventEmitter<any> = new EventEmitter();
     @ViewChild('inlineEditControl') inlineEditControl: HTMLFormElement;
@@ -50,7 +50,7 @@ export class InlineEditComponent implements ControlValueAccessor {
             this.onChange(value);
         }
 
-        this.validate();
+        this.reValidate();
     }
 
     public get editing() {
@@ -84,7 +84,8 @@ export class InlineEditComponent implements ControlValueAccessor {
     }
 
     get isValid(): boolean {
-        return this._value.length >= this.min;
+        return this._value.length >= this.min
+            && this._value.length <= this.max;
     }
     get isTextbox(): boolean {
         return this._type === InputType.text;
@@ -110,19 +111,26 @@ export class InlineEditComponent implements ControlValueAccessor {
     onSubmit(value) {
         this.save.emit(value);
         this.editing = false;
-        this.validate();
+        this.reValidate();
     }
 
     cancel() {
         this._value = this._preValue;
         this.editing = false;
-        this.validate();
+        this.reValidate();
     }
 
-    validate(): void {
-        if (!this.isValid) {
-            this.inlineEditForm.form.get('value').setErrors({ 'invalid': true });
+    reValidate(): void {
+        const valueControl = this.inlineEditForm.form.get('value');
+        if (this.isValid) {
+            valueControl.setErrors(null);
+        } else {
+            valueControl.setErrors({ 'invalid': true });
         }
+    }
+
+    markPristine(): void {
+        this.inlineEditForm.form.markAsPristine();
     }
 
     @HostListener('document:click', ['$event'])

@@ -23,9 +23,7 @@ export class AppComponent implements OnInit {
 
     this.myForm = this.fb.group({
       editableText2: [`long text long text long text long text long text long text long text
-      long text long text long text long text long text long text long text long text long text long text long text long text
-      long text long text long text long text long text long text long text long text long text long text long text long text
-      long text long text long text long text long text long textlong text long text long text long text long text long text`,
+      long text long text long text long text long text long`,
       Validators.required]
     });
     console.log(this.myForm);

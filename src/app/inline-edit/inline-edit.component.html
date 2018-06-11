@@ -2,7 +2,7 @@
 
     <!-- Editable value -->
     <a (click)="edit(value)" [hidden]="editing">
-            <app-truncated-text text="{{value}}" limit="10"></app-truncated-text>
+        <app-truncated-text text="{{value}}" limit="{{limit}}"></app-truncated-text>
     </a>
 
     <!-- inline edit form -->

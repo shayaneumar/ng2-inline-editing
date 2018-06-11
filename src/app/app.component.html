@@ -3,21 +3,12 @@
 </h3>
 
 <div>
-  <app-inline-edit 
-    [(ngModel)]="editableText" 
-    (save)="saveEditable($event)" >
+  <app-inline-edit [(ngModel)]="editableText" (save)="saveEditable($event)" limit="10">
   </app-inline-edit>
   <form [formGroup]="myForm">
-    <app-inline-edit
-      formControlName="editableText2" 
-      (save)="saveEditable($event)" 
-      min="1" 
-      max="2000" 
-      type="textarea" 
-      rows="5"
-      columns="20">
+    <app-inline-edit formControlName="editableText2" (save)="saveEditable($event)" min="1" max="2000" type="text" rows="5" columns="20" limit="20">
     </app-inline-edit>
-    <div class="task-name-required"  [hidden]="myForm.controls.editableText2.valid">Required.</div>
+    <div class="required" [hidden]="myForm.controls.editableText2.valid">Required.</div>
   </form>
 </div>
 
