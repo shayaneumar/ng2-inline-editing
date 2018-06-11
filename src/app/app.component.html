@@ -12,11 +12,15 @@
       formControlName="editableText2" 
       (save)="saveEditable($event)" 
       min="1" 
-      max="200" 
+      max="2000" 
       type="textarea" 
       rows="5"
       columns="20">
     </app-inline-edit>
     <div class="task-name-required"  [hidden]="myForm.controls.editableText2.valid">Required.</div>
   </form>
+</div>
+
+<div>
+  <app-truncated-text text="loremdfdsfdfdsfdsfdsfdsfdsfdf" limit="20"></app-truncated-text>
 </div>

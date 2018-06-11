@@ -22,7 +22,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     this.myForm = this.fb.group({
-      editableText2: ['editable text 2', Validators.required]
+      editableText2: [`long text long text long text long text long text long text long text
+      long text long text long text long text long text long text long text long text long text long text long text long text
+      long text long text long text long text long text long text long text long text long text long text long text long text
+      long text long text long text long text long text long textlong text long text long text long text long text long text`,
+      Validators.required]
     });
     console.log(this.myForm);
   }

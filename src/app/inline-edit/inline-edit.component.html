@@ -1,7 +1,9 @@
 <div id="inlineEditWrapper">
 
     <!-- Editable value -->
-    <a (click)="edit(value)" [hidden]="editing">{{ value }}</a>
+    <a (click)="edit(value)" [hidden]="editing">
+            <app-truncated-text text="{{value}}" limit="10"></app-truncated-text>
+    </a>
 
     <!-- inline edit form -->
     <form  #inlineEditForm="ngForm" class="inlineEditForm form-inline" (ngSubmit)="onSubmit(value)" [hidden]="!editing || disable">
