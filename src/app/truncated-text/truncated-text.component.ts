@@ -9,29 +9,28 @@ import { TruncatePipe } from '../truncate.pipe';
 export class TruncatedTextComponent implements OnInit {
   @Input() text = '';
   @Input() limit = Infinity;
-  private _truncating = true;
+  @Input() showLess = false;
+  truncating = true;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  set truncating(value: boolean) {
-    this._truncating = value;
-  }
-  get truncating(): boolean {
-    return this._truncating;
-  }
 
   get isLimitLesser(): boolean {
     return this.text.length <= this.limit;
   }
 
-  get showMore(): boolean {
-    return this._truncating && this.text.length > this.limit;
+  get showMoreOption(): boolean {
+    return this.truncating && this.text.length > this.limit;
   }
 
-  get showLess(): boolean {
-    return !this._truncating && this.text.length > this.limit;
+  get showLessOption(): boolean {
+    return this.showLess && !this.truncating && this.text.length > this.limit;
+  }
+
+  get showAll(): boolean {
+    return this.isLimitLesser || !this.truncating;
   }
 }
